@@ -1,0 +1,117 @@
+/*! Student Name: Kritish Dhakal */
+/*! Student ID: 2408573 */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root {
+  --color: #121212;
+  --card-bg: #ffffff90;
+  --card-shadow: 0 8px 16px rgba(255, 255, 255, 0.25);
+  --card-border: 2px solid rgba(255,255,255,.5);
+  --card-radius: 12px;
+  --card-backdrop: blur(50px);
+}
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #3498DB;
+  background-image: url('https://source.unsplash.com/1600x900/?landscape');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-size: 120%;
+  color: var(--color);
+}
+::selection{
+  background-color: var(--card-bg);
+}
+.card {
+  position: relative;
+  background-color: var(--card-bg);
+  padding: 2em;
+  width: 100%;
+  max-width: 420px;
+  margin: 1em;
+  border: var(--card-border);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: var(--card-backdrop);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+button {
+  margin: 0.5em;
+  border-radius: 12px;
+  border: none;
+  height: 44px;
+  width: 44px;
+  outline: none;
+  background: #ffffffaa;
+  color: black;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+button:hover {
+  background: #fffffff0;
+}
+input.search-bar {
+  border: 2px solid transparent;
+  transition: 250ms linear;
+  outline: none;
+  padding: 0.4em 1em;
+  border-radius: 12px;
+
+  background: #ffffffaa;
+
+  color: black;
+  font-family: inherit;
+  font-size: 100%;
+  width: calc(100% - 100px);
+}
+input.search-bar:focus {
+  border-color: #3498DB;
+}
+h1.temp {
+  margin: 0;
+  margin-bottom: 0.4em;
+}
+.description {
+  text-transform: capitalize;
+}
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.not-found {
+  display: none;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  background-color: var(--card-bg);
+  width: 100%;
+  text-align: center;
+  border: var(--card-border);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: var(--card-backdrop);
+}
+
+footer p {
+  margin: .5em 2em;
+}
