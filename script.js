@@ -49,7 +49,7 @@ let weather = {
     document.querySelector(".dateTime").innerHTML = `${dateTime}`;
 
     //? Getting a image of the city from unsplash link
-    document.body.style.backgroundImage = `url('https://source.unsplash.com/1920x1080/?${data.name} city')`;
+    document.body.style.backgroundImage = `url('https://source.unsplash.com/1920x1080/?${data.name}')`;
   },
 
   //? Search function

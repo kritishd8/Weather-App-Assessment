@@ -9,7 +9,8 @@
   --card-shadow: 0 8px 16px rgba(255, 255, 255, 0.25);
   --card-border: 2px solid rgba(255,255,255,.5);
   --card-radius: 12px;
-  --card-backdrop: blur(50px);
+  --card-backdrop: blur(33px);
+  --accent: hsl(204 70% 53%);
 }
 
 
@@ -20,7 +21,7 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: #3498DB;
+  background-color: var(--accent);
   background-image: url('https://source.unsplash.com/1600x900/?landscape');
   background-position: center center;
   background-size: cover;
@@ -81,7 +82,7 @@ input.search-bar {
   width: calc(100% - 100px);
 }
 input.search-bar:focus {
-  border-color: #3498DB;
+  border-color: var(--accent);
 }
 h1.temp {
   margin: 0;
