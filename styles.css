@@ -116,3 +116,7 @@ footer {
 footer p {
   margin: .5em 2em;
 }
+
+hr {
+  border-top: 0;
+}
