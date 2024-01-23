@@ -6,7 +6,6 @@
 //!  
 
 //? Api Key
-const apiKey = "fec81edd16e193e514c606bf1b80293e";
 let searchBar = document.querySelector(".search-bar");
 let searchBtn = document.querySelector(".search button");
 
@@ -37,7 +36,7 @@ let weather = {
     document.querySelector('.weather').style.display = 'block';
     document.querySelector('.not-found').style.display = 'none';  
 
-    console.log(data);
+    console.log(`${data.city}:`, data);
     document.querySelector(".city").innerHTML = `${data.city}, ${data.country}`;
     document.querySelector(".description").innerHTML = data.weather_description;
     document.querySelector(".icon").src = `http://openweathermap.org/img/wn/${data.icon}.png`; //? Putting the description suitable icon //
