@@ -6,6 +6,10 @@
 
 //!  
 
+// TODO: Din ko euta data store hune max (gardina ma yo)
+// TODO: Day number store garera 7 din ko data lyako xa
+
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -22,11 +26,13 @@ $city = $_GET['city'];
 $sql = "SELECT * FROM weather_data WHERE city = '$city' AND last_updated > DATE_SUB(NOW(), INTERVAL 6 HOUR)";
 $result = mysqli_query($connection, $sql);
 
+//? Check if exists in database
 if ($result && mysqli_num_rows($result) > 0) {
 
     $row = mysqli_fetch_assoc($result);
     echo json_encode($row); //? Sending the row as json to client
 
+//? If doesn't exist in database, fetch the data
 } else {
 
     $apiKey = "fec81edd16e193e514c606bf1b80293e";
