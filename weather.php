@@ -4,11 +4,7 @@
 //!   Student Name: Kritish Dhakal
 //!   Student ID: 2408573
 
-//!  
-
-// TODO: Din ko euta data store hune max (gardina ma yo)
-// TODO: Day number store garera 7 din ko data lyako xa
-
+//!
 
 $servername = "localhost";
 $username = "root";
@@ -21,6 +17,7 @@ if (!$connection) {
     exit("Connection failed: ".mysqli_connect_error());
 }
 
+//? Retrieving the name of the city from the url passed in js file using '$_GET superglobal'
 $city = $_GET['city'];
 
 $sql = "SELECT * FROM weather_data WHERE city = '$city' AND last_updated > DATE_SUB(NOW(), INTERVAL 6 HOUR)";
