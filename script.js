@@ -5,14 +5,12 @@
 
 //!  
 
-//? Api Key
-let searchBar = document.querySelector(".search-bar");
-let searchBtn = document.querySelector(".search button");
+const searchBar = document.querySelector(".search-bar");
+const searchBtn = document.querySelector(".search button");
 const historicalWeatherDiv = document.querySelector('.historical-weather');
 
-//? Creating a object literal
 let weather = {
-  //? getting the weather data
+  //? getting the weather data from php file
   fetchWeather: function (city) {
     fetch(`weather.php?city=${city.toLowerCase()}`)
         .then((response) => response.json())
@@ -23,8 +21,8 @@ let weather = {
   //? function to display the weather data in html using dom
   displayWeather: function (data) {
 
+    //? Converting the date to 01 Jan 2024 format
     const date = new Date(data.currentData.last_updated);
-
     const dateTime = date.toLocaleDateString(
       "en-US", 
       { day: 'numeric',
@@ -40,9 +38,10 @@ let weather = {
     document.querySelector('.not-found').style.display = 'none';  
 
     console.log(`${data.currentData.city}:`, data);
+
     document.querySelector(".city").innerHTML = `${data.currentData.city}, ${countryName}`;
     document.querySelector(".description").innerHTML = data.currentData.weather_description;
-    document.querySelector(".icon").src = `http://openweathermap.org/img/wn/${data.currentData.icon}.png`; //? Putting the description suitable icon //
+    document.querySelector(".icon").src = `http://openweathermap.org/img/wn/${data.currentData.icon}.png`;
     document.querySelector(".temp").innerHTML = `${Math.round(data.currentData.temperature)}°C`;
     document.querySelector(".humidity").innerHTML = `<b>Humidity</b>: ${data.currentData.humidity}%`;
     document.querySelector(".pressure").innerHTML = `<b>Pressure</b>: ${data.currentData.pressure}Pa`;
@@ -57,6 +56,7 @@ let weather = {
       historicalWeatherDiv.style.display = 'block';
 
       historicalWeatherDiv.innerHTML = '';
+
       historicalWeatherDiv.innerHTML =`
         <h3 style="margin: .7em 0;"><strong>Weather in <span style="text-transform: capitalize;">${data.currentData.city}</span> in last 7 days</strong></h3>
         <div class="historical-item">
@@ -66,7 +66,9 @@ let weather = {
           <p class="historical-pressure"><strong>Pressure</strong></p>
           <p class="historical-windspeed"><strong>Wind Speed</strong></p>
         </div>`;
-      data.sevenDaysData.forEach(dayData => {
+
+        //? Using a forEach to loop through all the objects inside the sevenDaysData array and display it
+        data.sevenDaysData.forEach(dayData => {
         const historicalItem = document.createElement('div');
         historicalItem.classList.add('historical-item');
 
@@ -78,6 +80,7 @@ let weather = {
           }
         );
 
+        //? Returns day from a given date
         function getDayOfWeek(date) {
           return date.toLocaleDateString('en-US', { weekday: 'short' });
         }
