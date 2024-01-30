@@ -6,20 +6,19 @@
 
 //!  
 
+//? Server, username, password, database
+$connection = mysqli_connect("localhost", "root", "", "weatherdata");
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "weatherdata";
 
-$connection = mysqli_connect($servername, $username, $password, $database);
-
+//? If connection fails
 if (!$connection) {
     exit("Connection failed: ".mysqli_connect_error());
 }
 
+
 //? Retrieving the name of the city from the url passed in js file using '$_GET superglobal'
 $city = $_GET['city'];
+
 
 //? Function to fetch todays weather data of given city
 function fetchTodayData($connection, $city) {
