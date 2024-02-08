@@ -4,13 +4,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 :root {
-  --color: #121212;
-  --card-bg: #ffffff90;
-  --card-shadow: 0 8px 16px rgba(255, 255, 255, 0.25);
-  --card-border: 2px solid rgba(255,255,255,.5);
+  --color: hsl(0, 0%, 100%);
+  --color-sec: hsl(0, 0%, 90%);
+  --card-bg: #00000080;
+  --card-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  --card-border: 1px solid rgba(255,255,255,.4);
   --card-radius: 12px;
   --card-backdrop: blur(33px);
-  --accent: hsl(204 70% 53%);
+  --accent: hsl(5 100% 60% / 80%);
 }
 
 body {
@@ -34,7 +35,7 @@ body {
 }
 
 ::selection{
-  background-color: var(--card-bg);
+  background-color: var(--accent);
 }
 
 .container {
@@ -63,43 +64,62 @@ body {
 }
 button {
   margin: 0.5em;
-  border-radius: 12px;
+  border-radius: 8px;
   border: none;
   height: 44px;
   width: 44px;
   outline: none;
-  background: #ffffffaa;
-  color: black;
+  background: var(--card-bg);
+  color: var(--color);
   cursor: pointer;
   transition: 0.2s ease-in-out;
+  border: 1px solid transparent;
 }
-button:hover {
-  background: #fffffff0;
+button:hover, input.search-bar:focus {
+  background: #000000bb;
+  border-color: var(--accent);
+  box-shadow: var(--card-shadow);
 }
 input.search-bar {
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   transition: 250ms linear;
   outline: none;
   padding: 0.4em 1em;
-  border-radius: 12px;
 
-  background: #ffffffaa;
+  background: var(--card-bg);
+  color: var(--color);
+  border-radius: 8px;
 
-  color: black;
   font-family: inherit;
   font-size: 100%;
   width: calc(100% - 100px);
 }
-input.search-bar:focus {
-  border-color: var(--accent);
-}
+
 h1.temp {
   margin: 0;
   margin-bottom: 0.4em;
 }
+
 .description {
   text-transform: capitalize;
+  color: var(--color-sec);
 }
+
+.dateTime{
+  color: var(--color-sec);
+  font-weight: normal;
+}
+
+.extra-info {
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.extra-info span {
+  font-weight: normal;
+  color: var(--color-sec);
+}
+
 .flex {
   display: flex;
   align-items: center;
@@ -114,12 +134,12 @@ footer {
   bottom: 0;
   margin-top: 1em;
   background-color: var(--card-bg);
-  width: calc(100% - 3px);
+  width: calc(100%);
   text-align: center;
   border: var(--card-border);
-  border-radius: var(--card-radius);
   box-shadow: var(--card-shadow);
   backdrop-filter: var(--card-backdrop);
+  border-bottom: 0 !important;
 }
 
 footer p {
@@ -128,11 +148,12 @@ footer p {
 
 hr {
   border-top: 0;
+  border-color: #ffffff70;
 }
 
 .historical-weather {
   display: none;
-  border-left: 1px solid #EEEEEE;
+  border-left: 1px solid #ffffff50;
   padding-left: 2em;
 }
 
@@ -142,14 +163,18 @@ hr {
   gap: 1em;
 }
 
-.historical-item:nth-child(2){
-  border-bottom: 1px solid #EEEEEE;
-  border-top: 1px solid #EEEEEE;
+.historical-item:nth-child(1){  
+  border-bottom: 1px solid #ffffff70;
+  margin-bottom: 10px;
 }
 
 .historical-day {
   text-align: left;
   width: 120px;
+}
+
+.historical-data {
+  color: var(--color-sec);
 }
 
 .historical-item p {

@@ -10,12 +10,21 @@ const searchBtn = document.querySelector(".search button");
 const historicalWeatherDiv = document.querySelector('.historical-weather');
 
 let weather = {
-  //? getting the weather data from php file
+  //? getting the weather data from local storage or php file
   fetchWeather: function (city) {
-    fetch(`weather.php?city=${city.toLowerCase()}`)
-        .then((response) => response.json())
-        .then((data) => this.displayWeather(data))
-        .catch(() => this.notFound());
+    const cachedData = localStorage.getItem(city.toLowerCase());
+    if (cachedData) {
+        const data = JSON.parse(cachedData);
+        this.displayWeather(data);
+    } else {
+        fetch(`weather.php?city=${city.toLowerCase()}`)
+            .then((response) => response.json())
+            .then((data) => {
+                localStorage.setItem(city.toLowerCase(), JSON.stringify(data));
+                this.displayWeather(data);
+            })
+            .catch(() => this.notFound());
+    }
   },
 
   //? function to display the weather data in html using dom
@@ -43,9 +52,9 @@ let weather = {
     document.querySelector(".description").innerHTML = data.currentData.weather_description;
     document.querySelector(".icon").src = `http://openweathermap.org/img/wn/${data.currentData.icon}.png`;
     document.querySelector(".temp").innerHTML = `${Math.round(data.currentData.temperature)}°C`;
-    document.querySelector(".humidity").innerHTML = `<b>Humidity</b>: ${data.currentData.humidity}%`;
-    document.querySelector(".pressure").innerHTML = `<b>Pressure</b>: ${data.currentData.pressure}Pa`;
-    document.querySelector(".wind").innerHTML = `<b>Wind Speed</b>: ${data.currentData.wind_speed}km/h`;
+    document.querySelector(".humidity").innerHTML = `${data.currentData.humidity}%`;
+    document.querySelector(".pressure").innerHTML = `${data.currentData.pressure}Pa`;
+    document.querySelector(".wind").innerHTML = `${data.currentData.wind_speed}km/h`;
     document.querySelector(".dateTime").innerHTML = `${dateTime}`;
 
     //? Getting a image of the city from unsplash link
@@ -58,7 +67,6 @@ let weather = {
       historicalWeatherDiv.innerHTML = '';
 
       historicalWeatherDiv.innerHTML =`
-        <h3 style="margin: .7em 0;"><strong>Weather in <span style="text-transform: capitalize;">${data.currentData.city}</span> in last 7 days</strong></h3>
         <div class="historical-item">
           <p class="historical-day"><strong>Date</strong></p>
           <p class="historical-temp"><strong>Temp</strong></p>
@@ -71,6 +79,7 @@ let weather = {
         data.sevenDaysData.forEach(dayData => {
         const historicalItem = document.createElement('div');
         historicalItem.classList.add('historical-item');
+        historicalItem.classList.add('historical-data');
 
         const historicalDate = new Date(dayData.date);
         const historicalDateTime = historicalDate.toLocaleDateString(
