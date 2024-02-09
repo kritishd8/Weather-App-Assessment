@@ -29,7 +29,7 @@ let weather = {
       const cachedDate = new Date(data.currentData.last_updated).toLocaleDateString(); //? Extracting the date from cached data
       const currentDate = new Date().toLocaleDateString(); //? Getting current date
 
-      //? Check if the cached date is not today's date, then fetch new data
+      //? Check if the cached data date is not today
       if (cachedDate !== currentDate) {
         this.fetchAndUpdateWeather(city);
       } else {
