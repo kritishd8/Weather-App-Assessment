@@ -10,26 +10,39 @@ const searchBtn = document.querySelector(".search button");
 const historicalWeatherDiv = document.querySelector('.historical-weather');
 
 let weather = {
-  //? getting the weather data from local storage or php file
-  fetchWeather: function (city) {
+  //? Function to fetch and update weather data
+  fetchAndUpdateWeather: function(city) {
+    fetch(`weather.php?city=${city.toLowerCase()}`)
+      .then((response) => response.json())
+      .then((data) => {
+        localStorage.setItem(city.toLowerCase(), JSON.stringify(data));
+        this.displayWeather(data);
+      })
+      .catch(() => this.notFound());
+  },
+
+  //? Fetch weather data function
+  fetchWeather: function(city) {
     const cachedData = localStorage.getItem(city.toLowerCase());
     if (cachedData) {
-        const data = JSON.parse(cachedData);
+      const data = JSON.parse(cachedData);
+      const cachedDate = new Date(data.currentData.last_updated).toLocaleDateString(); //? Extracting the date from cached data
+      const currentDate = new Date().toLocaleDateString(); //? Getting current date
+
+      //? Check if the cached date is not today's date, then fetch new data
+      if (cachedDate !== currentDate) {
+        this.fetchAndUpdateWeather(city);
+      } else {
         this.displayWeather(data);
+      }
     } else {
-        fetch(`weather.php?city=${city.toLowerCase()}`)
-            .then((response) => response.json())
-            .then((data) => {
-                localStorage.setItem(city.toLowerCase(), JSON.stringify(data));
-                this.displayWeather(data);
-            })
-            .catch(() => this.notFound());
+      //? No cached data found, fetch new data
+      this.fetchAndUpdateWeather(city);
     }
   },
 
-  //? function to display the weather data in html using dom
-  displayWeather: function (data) {
-
+  //? Display weather data function
+  displayWeather: function(data) {
     //? Converting the date to 01 Jan 2024 format
     const date = new Date(data.currentData.last_updated);
     const dateTime = date.toLocaleDateString(
@@ -121,12 +134,12 @@ let weather = {
   },
 
   //? Search function
-  search: function () {
+  search: function() {
     this.fetchWeather(document.querySelector(".search-bar").value);
   },
 
   //? 404 Not Found // Error
-  notFound: function(err){
+  notFound: function(err) {
     //? Hiding weather information and displaying not found message
     historicalWeatherDiv.style.display = 'none';
     document.querySelector('.weather').style.display = 'none';
@@ -137,7 +150,7 @@ let weather = {
 
 //? Search when btn is clicked
 document.querySelector(".search button").addEventListener("click", () => {
-  if (searchBar.value != ''){
+  if (searchBar.value != '') {
     weather.search();
     searchBar.value = '';
   }
@@ -149,7 +162,7 @@ document.querySelector(".search-bar").addEventListener("keypress", (event) => {
     weather.search();
     searchBar.value = '';
   }
-}); 
+});
 
 //? Default location
 weather.fetchWeather("Nagaon");
