@@ -9,6 +9,7 @@ const searchBar = document.querySelector(".search-bar");
 const searchBtn = document.querySelector(".search button");
 const historicalWeatherDiv = document.querySelector('.historical-weather');
 
+
 let weather = {
   //? Function to fetch and update weather data
   fetchAndUpdateWeather: function(city) {
